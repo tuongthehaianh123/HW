@@ -8,26 +8,26 @@ import (
 	"context"
 	"strings"
 
-	"github.com/onosproject/onos-kpimon/pkg/monitoring"
-	"github.com/onosproject/onos-kpimon/pkg/store/actions"
-	"github.com/onosproject/onos-kpimon/pkg/store/measurements"
+	"github.com/tuongthehaianh123/HW/pkg/monitoring"
+	"github.com/tuongthehaianh123/HW/pkg/store/actions"
+	"github.com/tuongthehaianh123/HW/pkg/store/measurements"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 
-	"github.com/onosproject/onos-kpimon/pkg/utils"
+	"github.com/tuongthehaianh123/HW/pkg/utils"
 
 	"github.com/onosproject/onos-ric-sdk-go/pkg/config/event"
 
-	"github.com/onosproject/onos-kpimon/pkg/broker"
+	"github.com/tuongthehaianh123/HW/pkg/broker"
 
-	appConfig "github.com/onosproject/onos-kpimon/pkg/config"
+	appConfig "github.com/tuongthehaianh123/HW/pkg/config"
 
-	subutils "github.com/onosproject/onos-kpimon/pkg/utils/subscription"
+	subutils "github.com/tuongthehaianh123/HW/pkg/utils/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	prototypes "github.com/gogo/protobuf/types"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-kpimon/pkg/rnib"
+	"github.com/tuongthehaianh123/HW/pkg/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 )
@@ -242,7 +242,7 @@ func (m *Manager) createSubscription(ctx context.Context, e2nodeID topoapi.ID) e
 
 		ch := make(chan e2api.Indication)
 		node := m.e2client.Node(e2client.NodeID(e2nodeID))
-		subName := "onos-kpimon-subscription"
+		subName := "onos-HW-subscription"
 
 		subSpec := e2api.SubscriptionSpec{
 			Actions: actions,

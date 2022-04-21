@@ -14,10 +14,10 @@ import (
 	"testing"
 )
 
-// KPIMonServiceAddress defines the address and port for connections to the KPIMON service
-const KPIMonServiceAddress = "onos-kpimon:5150"
+// HWServiceAddress defines the address and port for connections to the HW service
+const HWServiceAddress = "onos-hw:5150"
 
-// ConnectKPIMonServiceHost connects to the onos KPIMon service
+// ConnectHWServiceHost connects to the onos HW service
 func ConnectKPIMonServiceHost() (*grpc.ClientConn, error) {
 	tlsConfig, err := creds.GetClientCredentials()
 	if err != nil {
@@ -27,10 +27,10 @@ func ConnectKPIMonServiceHost() (*grpc.ClientConn, error) {
 		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
 	}
 
-	return grpc.DialContext(context.Background(), KPIMonServiceAddress, opts...)
+	return grpc.DialContext(context.Background(), HWServiceAddress, opts...)
 }
 
-// GetKPIMonClient returns an SDK subscription client
+// GetHWClient returns an SDK subscription client
 func GetKPIMonClient(t *testing.T) kpimon.KpimonClient {
 	conn, err := ConnectKPIMonServiceHost()
 	assert.NoError(t, err)

@@ -7,7 +7,7 @@ package main
 import (
 	"flag"
 
-	"github.com/onosproject/onos-kpimon/pkg/manager"
+	"github.com/tuongthehaianh123/HW/HW/HW/pkg/manager"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
@@ -34,7 +34,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Info("Starting onos-kpimon")
+	log.Info("Starting onos-hw")
 	cfg := manager.Config{
 		CAPath:      *caPath,
 		KeyPath:     *keyPath,

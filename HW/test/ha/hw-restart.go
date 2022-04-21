@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	v1 "github.com/onosproject/helmit/pkg/kubernetes/core/v1"
 	"github.com/onosproject/onos-api/go/onos/kpimon"
-	"github.com/onosproject/onos-kpimon/test/utils"
+	"github.com/tuongthehaianh123/HW/test/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -89,7 +89,7 @@ func FindPodWithPrefix(t *testing.T, prefix string) *v1.Pod {
 	return nil
 }
 
-// GetKPIMonMeasurementsOrFail queries measurement data from onos-kpimon
+// gethwMeasurementsOrFail queries measurement data from onos-hw
 func GetKPIMonMeasurementsOrFail(t *testing.T) *kpimon.GetResponse {
 	var (
 		resp *kpimon.GetResponse
@@ -112,21 +112,21 @@ func GetKPIMonMeasurementsOrFail(t *testing.T) *kpimon.GetResponse {
 	return nil
 }
 
-// TestKPIMonRestart tests that onos-kpimon recovers from crashes
+// TesthwRestart tests that onos-hw recovers from crashes
 func (s *TestSuite) TestKPIMonRestart(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "test-kpimon-restart")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "test-hw-restart")
 	assert.NotNil(t, sim)
 
-	// First make sure that KPIMON came up properly
+	// First make sure that hw came up properly
 	resp := GetKPIMonMeasurementsOrFail(t)
 	assert.NotNil(t, resp)
 
 	for i := 1; i <= 5; i++ {
-		// Crash onos-kpimon
-		e2tPod := FindPodWithPrefix(t, "onos-kpimon")
+		// Crash onos-hw
+		e2tPod := FindPodWithPrefix(t, "onos-hw")
 		CrashPodOrFail(t, e2tPod)
 
-		singlePodExists := WaitSinglePodWithPrefix(t, "onos-kpimon", 15)
+		singlePodExists := WaitSinglePodWithPrefix(t, "onos-hw", 15)
 		assert.True(t, singlePodExists)
 
 		resp = GetKPIMonMeasurementsOrFail(t)

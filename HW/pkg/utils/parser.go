@@ -6,27 +6,27 @@ package utils
 
 import (
 	prototypes "github.com/gogo/protobuf/types"
-	kpimonapi "github.com/onosproject/onos-api/go/onos/kpimon"
-	measurementStore "github.com/onosproject/onos-kpimon/pkg/store/measurements"
+	hwapi "github.com/onosproject/onos-api/go/onos/kpimon"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	measurementStore "github.com/tuongthehaianh123/HW/pkg/store/measurements"
 )
 
 var log = logging.GetLogger("utils", "parser")
 
 // ParseEntry parses measurement store entry
-func ParseEntry(entry *measurementStore.Entry) *kpimonapi.MeasurementItems {
+func ParseEntry(entry *measurementStore.Entry) *hwapi.MeasurementItems {
 	var err error
 
 	measEntryItems := entry.Value.([]measurementStore.MeasurementItem)
-	measItem := &kpimonapi.MeasurementItem{}
-	measItems := &kpimonapi.MeasurementItems{}
+	measItem := &hwapi.MeasurementItem{}
+	measItems := &hwapi.MeasurementItems{}
 	for _, entryItem := range measEntryItems {
-		measItem.MeasurementRecords = make([]*kpimonapi.MeasurementRecord, 0)
+		measItem.MeasurementRecords = make([]*hwapi.MeasurementRecord, 0)
 		for _, record := range entryItem.MeasurementRecords {
 			var value *prototypes.Any
 			switch val := record.MeasurementValue.(type) {
 			case int64:
-				intValue := &kpimonapi.IntegerValue{Value: val}
+				intValue := &hwapi.IntegerValue{Value: val}
 				value, err = prototypes.MarshalAny(intValue)
 				if err != nil {
 					log.Warn(err)
@@ -34,7 +34,7 @@ func ParseEntry(entry *measurementStore.Entry) *kpimonapi.MeasurementItems {
 				}
 
 			case float64:
-				realValue := &kpimonapi.RealValue{
+				realValue := &hwapi.RealValue{
 					Value: val,
 				}
 				value, err = prototypes.MarshalAny(realValue)
@@ -43,7 +43,7 @@ func ParseEntry(entry *measurementStore.Entry) *kpimonapi.MeasurementItems {
 					continue
 				}
 			case int32:
-				noValue := &kpimonapi.NoValue{
+				noValue := &hwapi.NoValue{
 					Value: val,
 				}
 				value, err = prototypes.MarshalAny(noValue)
@@ -54,7 +54,7 @@ func ParseEntry(entry *measurementStore.Entry) *kpimonapi.MeasurementItems {
 
 			}
 
-			measRecord := &kpimonapi.MeasurementRecord{
+			measRecord := &hwapi.MeasurementRecord{
 				MeasurementName:  record.MeasurementName,
 				Timestamp:        record.Timestamp,
 				MeasurementValue: value,

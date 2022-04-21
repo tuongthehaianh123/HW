@@ -8,18 +8,18 @@ import (
 	"context"
 	"fmt"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-kpimon/pkg/rnib"
+	"github.com/tuongthehaianh123/HW/pkg/rnib"
 
-	"github.com/onosproject/onos-kpimon/pkg/utils"
+	"github.com/tuongthehaianh123/HW/pkg/utils"
 
-	kpimonapi "github.com/onosproject/onos-api/go/onos/kpimon"
-	"github.com/onosproject/onos-kpimon/pkg/store/event"
-	measurementStore "github.com/onosproject/onos-kpimon/pkg/store/measurements"
+	hwapi "github.com/onosproject/onos-api/go/onos/kpimon"
+	"github.com/tuongthehaianh123/HW/pkg/store/event"
+	measurementStore "github.com/tuongthehaianh123/HW/pkg/store/measurements"
 	"github.com/onosproject/onos-lib-go/pkg/logging/service"
 	"google.golang.org/grpc"
 )
 
-// NewService returns a new KPIMON interface service.
+// NewService returns a new HW interface service.
 func NewService(store measurementStore.Store) service.Service {
 	return &Service{
 		measurementStore: store,
@@ -37,21 +37,21 @@ func (s Service) Register(r *grpc.Server) {
 	server := &Server{
 		measurementStore: s.measurementStore,
 	}
-	kpimonapi.RegisterKpimonServer(r, server)
+	hwapi.RegisterKpimonServer(r, server)
 }
 
-// Server implements the KPIMON gRPC service for administrative facilities.
+// Server implements the HWgRPC service for administrative facilities.
 type Server struct {
 	measurementStore measurementStore.Store
 }
 
 // ListMeasurements get a snapshot of measurements
-func (s *Server) ListMeasurements(ctx context.Context, request *kpimonapi.GetRequest) (*kpimonapi.GetResponse, error) {
+func (s *Server) ListMeasurements(ctx context.Context, request *hwapi.GetRequest) (*hwapi.GetResponse, error) {
 	ch := make(chan *measurementStore.Entry)
 	done := make(chan bool)
 
-	measurements := make(map[string]*kpimonapi.MeasurementItems)
-	go func(measurements map[string]*kpimonapi.MeasurementItems, ch chan *measurementStore.Entry, done chan bool) {
+	measurements := make(map[string]*hwapi.MeasurementItems)
+	go func(measurements map[string]*hwapi.MeasurementItems, ch chan *measurementStore.Entry, done chan bool) {
 		for entry := range ch {
 			measItems := utils.ParseEntry(entry)
 			cellID := entry.Key.CellIdentity.CellID
@@ -69,7 +69,7 @@ func (s *Server) ListMeasurements(ctx context.Context, request *kpimonapi.GetReq
 	}
 
 	<-done
-	response := &kpimonapi.GetResponse{
+	response := &hwapi.GetResponse{
 		Measurements: measurements,
 	}
 
@@ -77,7 +77,7 @@ func (s *Server) ListMeasurements(ctx context.Context, request *kpimonapi.GetReq
 }
 
 // WatchMeasurements get measurements in a stream
-func (s *Server) WatchMeasurements(request *kpimonapi.GetRequest, server kpimonapi.Kpimon_WatchMeasurementsServer) error {
+func (s *Server) WatchMeasurements(request *hwapi.GetRequest, server hwapi.Kpimon_WatchMeasurementsServer) error {
 	ch := make(chan event.Event)
 	err := s.measurementStore.Watch(server.Context(), ch)
 	if err != nil {
@@ -85,7 +85,7 @@ func (s *Server) WatchMeasurements(request *kpimonapi.GetRequest, server kpimona
 	}
 
 	for e := range ch {
-		measurements := make(map[string]*kpimonapi.MeasurementItems)
+		measurements := make(map[string]*hwapi.MeasurementItems)
 		measEntry := e.Value.(*measurementStore.Entry)
 		// key := e.Key.(measurementStore.Key)
 		cellID := measEntry.Key.CellIdentity.CellID
@@ -95,7 +95,7 @@ func (s *Server) WatchMeasurements(request *kpimonapi.GetRequest, server kpimona
 		measItems := utils.ParseEntry(measEntry)
 		measurements[keyID] = measItems
 
-		err := server.Send(&kpimonapi.GetResponse{
+		err := server.Send(&hwapi.GetResponse{
 			Measurements: measurements,
 		})
 		if err != nil {

@@ -5,12 +5,12 @@
 package manager
 
 import (
-	"github.com/onosproject/onos-kpimon/pkg/broker"
-	appConfig "github.com/onosproject/onos-kpimon/pkg/config"
-	nbi "github.com/onosproject/onos-kpimon/pkg/northbound"
-	"github.com/onosproject/onos-kpimon/pkg/southbound/e2/subscription"
-	"github.com/onosproject/onos-kpimon/pkg/store/actions"
-	"github.com/onosproject/onos-kpimon/pkg/store/measurements"
+	"github.com/tuongthehaianh123/HW/HW/pkg/broker"
+	appConfig "github.com/tuongthehaianh123/HW/HW/pkg/config"
+	nbi "github.com/tuongthehaianh123/HW/HW/pkg/northbound"
+	"github.com/tuongthehaianh123/HW/HW/pkg/southbound/e2/subscription"
+	"github.com/tuongthehaianh123/HW/HW/pkg/store/actions"
+	"github.com/tuongthehaianh123/HW/HW/pkg/store/measurements"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 )
@@ -30,7 +30,7 @@ type Config struct {
 	SMVersion   string
 }
 
-// NewManager generates the new KPIMON xAPP manager
+// NewManager generates the new hw xAPP manager
 func NewManager(config Config) *Manager {
 	appCfg, err := appConfig.NewConfig(config.ConfigPath)
 	if err != nil {
@@ -45,7 +45,7 @@ func NewManager(config Config) *Manager {
 		subscription.WithServiceModel(subscription.ServiceModelName(config.SMName),
 			subscription.ServiceModelVersion(config.SMVersion)),
 		subscription.WithAppConfig(appCfg),
-		subscription.WithAppID("onos-kpimon"),
+		subscription.WithAppID("onos-hw"),
 		subscription.WithBroker(subscriptionBroker),
 		subscription.WithActionStore(actionsStore),
 		subscription.WithMeasurementStore(measStore))
@@ -71,11 +71,11 @@ type Manager struct {
 	subManager       subscription.Manager
 }
 
-// Run runs KPIMON manager
+// Run runs hw manager
 func (m *Manager) Run() {
 	err := m.start()
 	if err != nil {
-		log.Errorf("Error when starting KPIMON: %v", err)
+		log.Errorf("Error when starting HW: %v", err)
 	}
 }
 
