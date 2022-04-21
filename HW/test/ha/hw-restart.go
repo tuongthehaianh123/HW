@@ -14,8 +14,8 @@ import (
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	v1 "github.com/onosproject/helmit/pkg/kubernetes/core/v1"
 	"github.com/onosproject/onos-api/go/onos/kpimon"
-	"github.com/tuongthehaianh123/HW/test/utils"
 	"github.com/stretchr/testify/assert"
+	"github.com/tuongthehaianh123/HW/HW/test/utils"
 )
 
 const (

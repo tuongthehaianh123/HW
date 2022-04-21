@@ -13,9 +13,9 @@ BUF_VERSION := 0.27.1
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
-	GOPRIVATE="github.com/onosproject/*" go build -o build/_output/onos-hw ./cmd/onos-hw
+	GOPRIVATE="github.com/tuongthehaianh123/HW/HW*" go build -o build/_output/onos-hw ./cmd/onos-hw
 
-build-tools:=$(shell if [ ! -d "./build/build-tools" ]; then cd build && git clone https://github.com/onosproject/build-tools.git; fi)
+build-tools:=$(shell if [ ! -d "./build/build-tools" ]; then cd build && git clone https://github.com/tuongthehaianh123/HW/HWbuild-tools.git; fi)
 include ./build/build-tools/make/onf-common.mk
 
 test: # @HELP run the unit tests and source code validation
