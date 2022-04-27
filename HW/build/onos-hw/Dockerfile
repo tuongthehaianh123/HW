@@ -16,7 +16,7 @@ COPY vendor/ /go/src/github.com/tuongthehaianh123/HW/HW/vendor/
 COPY api/ /go/src/github.com/tuongthehaianh123/HW/HW/api
 COPY build/build-tools /go/src/github.com/tuongthehaianh123/HW/HW/build/build-tools
 
-RUN cd /go/src/github.com/tuongthehaianh123/HW && GOFLAGS=-mod=vendor make ${ONOS_MAKE_TARGET}
+RUN cd /go/src/github.com/tuongthehaianh123/HW/HW/ && GOFLAGS=-mod=vendor make ${ONOS_MAKE_TARGET}
 
 FROM alpine:3.11
 RUN apk add libc6-compat

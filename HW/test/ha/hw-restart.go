@@ -90,12 +90,12 @@ func FindPodWithPrefix(t *testing.T, prefix string) *v1.Pod {
 }
 
 // gethwMeasurementsOrFail queries measurement data from onos-hw
-func GetKPIMonMeasurementsOrFail(t *testing.T) *kpimon.GetResponse {
+func GetHwMeasurementsOrFail(t *testing.T) *kpimon.GetResponse {
 	var (
 		resp *kpimon.GetResponse
 		err  error
 	)
-	client := utils.GetKPIMonClient(t)
+	client := utils.GetHwClient(t)
 	assert.NotNil(t, client)
 
 	req := &kpimon.GetRequest{}
@@ -113,12 +113,12 @@ func GetKPIMonMeasurementsOrFail(t *testing.T) *kpimon.GetResponse {
 }
 
 // TesthwRestart tests that onos-hw recovers from crashes
-func (s *TestSuite) TestKPIMonRestart(t *testing.T) {
+func (s *TestSuite) TestHwRestart(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "test-hw-restart")
 	assert.NotNil(t, sim)
 
 	// First make sure that hw came up properly
-	resp := GetKPIMonMeasurementsOrFail(t)
+	resp := GetHwMeasurementsOrFail(t)
 	assert.NotNil(t, resp)
 
 	for i := 1; i <= 5; i++ {
@@ -129,7 +129,7 @@ func (s *TestSuite) TestKPIMonRestart(t *testing.T) {
 		singlePodExists := WaitSinglePodWithPrefix(t, "onos-hw", 15)
 		assert.True(t, singlePodExists)
 
-		resp = GetKPIMonMeasurementsOrFail(t)
+		resp = GetHwMeasurementsOrFail(t)
 		assert.NotNil(t, resp)
 	}
 

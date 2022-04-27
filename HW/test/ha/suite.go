@@ -12,6 +12,10 @@ import (
 	"github.com/onosproject/helmit/pkg/test"
 	testutils "github.com/onosproject/onos-ric-sdk-go/pkg/utils"
 	"github.com/tuongthehaianh123/HW/HW/test/utils"
+<<<<<<< HEAD
+	"time"
+=======
+>>>>>>> b6461752acef5309d4b2ec54fc7d794950788c85
 )
 
 // TestSuite has sdran release and test suite
@@ -31,7 +35,7 @@ func (s *TestSuite) SetupTestSuite(c *input.Context) error {
 	s.sdran = sdran
 	sdran.Set("ran-simulator.pci.metricName", "metric").
 		Set("ran-simulator.pci.modelName", "model").
-		Set("import.onos-kpimon.enabled", true).
+		Set("import.onos-hw.enabled", true).
 		Set("import.ran-simulator.enabled", false).
 		WithTimeout(5 * time.Minute)
 

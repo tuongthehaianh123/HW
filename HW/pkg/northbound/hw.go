@@ -7,15 +7,16 @@ package northbound
 import (
 	"context"
 	"fmt"
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/tuongthehaianh123/HW/pkg/rnib"
 
-	"github.com/tuongthehaianh123/HW/pkg/utils"
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/tuongthehaianh123/HW/HW/pkg/rnib"
+
+	"github.com/tuongthehaianh123/HW/HW/pkg/utils"
 
 	hwapi "github.com/onosproject/onos-api/go/onos/kpimon"
-	"github.com/tuongthehaianh123/HW/pkg/store/event"
-	measurementStore "github.com/tuongthehaianh123/HW/pkg/store/measurements"
 	"github.com/onosproject/onos-lib-go/pkg/logging/service"
+	"github.com/tuongthehaianh123/HW/HW/pkg/store/event"
+	measurementStore "github.com/tuongthehaianh123/HW/HW/pkg/store/measurements"
 	"google.golang.org/grpc"
 )
 
@@ -37,7 +38,7 @@ func (s Service) Register(r *grpc.Server) {
 	server := &Server{
 		measurementStore: s.measurementStore,
 	}
-	hwapi.RegisterKpimonServer(r, server)
+	hwapi.RegisterHwServer(r, server)
 }
 
 // Server implements the HWgRPC service for administrative facilities.
@@ -77,7 +78,7 @@ func (s *Server) ListMeasurements(ctx context.Context, request *hwapi.GetRequest
 }
 
 // WatchMeasurements get measurements in a stream
-func (s *Server) WatchMeasurements(request *hwapi.GetRequest, server hwapi.Kpimon_WatchMeasurementsServer) error {
+func (s *Server) WatchMeasurements(request *hwapi.GetRequest, server hwapi.Hw_WatchMeasurementsServer) error {
 	ch := make(chan event.Event)
 	err := s.measurementStore.Watch(server.Context(), ch)
 	if err != nil {

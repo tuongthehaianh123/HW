@@ -7,7 +7,7 @@ package watcher
 import (
 	"sync"
 
-	"github.com/tuongthehaianh123/HW/pkg/store/event"
+	"github.com/tuongthehaianh123/HW/HW/pkg/store/event"
 
 	"github.com/google/uuid"
 )

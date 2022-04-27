@@ -8,7 +8,7 @@ import (
 	prototypes "github.com/gogo/protobuf/types"
 	hwapi "github.com/onosproject/onos-api/go/onos/kpimon"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	measurementStore "github.com/tuongthehaianh123/HW/pkg/store/measurements"
+	measurementStore "github.com/tuongthehaianh123/HW/HW/pkg/store/measurements"
 )
 
 var log = logging.GetLogger("utils", "parser")

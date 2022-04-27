@@ -5,11 +5,11 @@
 package subscription
 
 import (
-	"github.com/tuongthehaianh123/HW/pkg/broker"
-	appConfig "github.com/tuongthehaianh123/HW/pkg/config"
-	"github.com/tuongthehaianh123/HW/pkg/monitoring"
-	"github.com/tuongthehaianh123/HW/pkg/store/actions"
-	"github.com/tuongthehaianh123/HW/pkg/store/measurements"
+	"github.com/tuongthehaianh123/HW/HW/pkg/broker"
+	appConfig "github.com/tuongthehaianh123/HW/HW/pkg/config"
+	"github.com/tuongthehaianh123/HW/HW/pkg/monitoring"
+	"github.com/tuongthehaianh123/HW/HW/pkg/store/actions"
+	"github.com/tuongthehaianh123/HW/HW/pkg/store/measurements"
 )
 
 // Options E2 client options
