@@ -71,7 +71,7 @@ func (c *Client) UpdateCellAspects(ctx context.Context, cellID topoapi.ID, measI
 		if err != nil {
 			return err
 		}
-		cellObject.HwReports = make(map[string]uint32)
+		cellObject.KpiReports = make(map[string]uint32)
 
 		tmpTs := uint64(0)
 		for _, measItem := range measItems {
@@ -80,13 +80,13 @@ func (c *Client) UpdateCellAspects(ctx context.Context, cellID topoapi.ID, measI
 					tmpTs = record.Timestamp
 					switch record.MeasurementValue.(type) {
 					case int32:
-						cellObject.HwReports[record.MeasurementName] = uint32(record.MeasurementValue.(int32))
+						cellObject.KpiReports[record.MeasurementName] = uint32(record.MeasurementValue.(int32))
 
 					case int64:
-						cellObject.HwReports[record.MeasurementName] = uint32(record.MeasurementValue.(int64))
+						cellObject.KpiReports[record.MeasurementName] = uint32(record.MeasurementValue.(int64))
 
 					default:
-						cellObject.HwReports[record.MeasurementName] = uint32(0)
+						cellObject.KpiReports[record.MeasurementName] = uint32(0)
 					}
 				}
 			}
