@@ -7,19 +7,15 @@ export GO111MODULE=on
 
 .PHONY: build
 
-ONOS_HW_VERSION := latest
+ONOS_HW_VERSION := v0.3.2
 ONOS_PROTOC_VERSION := v0.6.6
 BUF_VERSION := 0.27.1
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
-<<<<<<< HEAD
 	GOPRIVATE="github.com/tuongthehaianh123/HW/HW/*" go build -o build/_output/onos-hw ./cmd/onos-hw
-=======
-	GOPRIVATE="github.com/tuongthehaianh123/HW/HW*" go build -o build/_output/onos-hw ./cmd/onos-hw
->>>>>>> b6461752acef5309d4b2ec54fc7d794950788c85
 
-build-tools:=$(shell if [ ! -d "./build/build-tools" ]; then cd build && git clone https://github.com/tuongthehaianh123/HW/HWbuild-tools.git; fi)
+build-tools:=$(shell if [ ! -d "./build/build-tools" ]; then cd build && git clone https://github.com/onosproject/build-tools.git; fi)
 include ./build/build-tools/make/onf-common.mk
 
 test: # @HELP run the unit tests and source code validation

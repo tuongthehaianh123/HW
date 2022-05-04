@@ -5,17 +5,12 @@
 package ha
 
 import (
-	"time"
-
 	"github.com/onosproject/helmit/pkg/helm"
 	"github.com/onosproject/helmit/pkg/input"
 	"github.com/onosproject/helmit/pkg/test"
 	testutils "github.com/onosproject/onos-ric-sdk-go/pkg/utils"
 	"github.com/tuongthehaianh123/HW/HW/test/utils"
-<<<<<<< HEAD
 	"time"
-=======
->>>>>>> b6461752acef5309d4b2ec54fc7d794950788c85
 )
 
 // TestSuite has sdran release and test suite

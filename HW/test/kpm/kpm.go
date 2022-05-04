@@ -6,17 +6,11 @@ package kpm
 
 import (
 	"context"
-<<<<<<< HEAD
 	"github.com/tuongthehaianh123/HW/HW/pkg/manager"
 	"github.com/tuongthehaianh123/HW/HW/test/utils"
-=======
-	"testing"
-
->>>>>>> b6461752acef5309d4b2ec54fc7d794950788c85
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/stretchr/testify/assert"
-	"github.com/tuongthehaianh123/HW/HW/pkg/manager"
-	"github.com/tuongthehaianh123/HW/HW/test/utils"
+	"testing"
 )
 
 // TestKpmSm is the function for Helmit-based integration test
